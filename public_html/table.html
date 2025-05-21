@@ -1,0 +1,78 @@
+     
+    <header>
+        <div class="container-fluid bg-success-subtle mb-4">
+            <div class="col-sm-8 mx-auto text-center py-4">
+                <h1 class="display-6">dKin Butterfly Club</h1>
+                <p class="lead">Informative web page on Butterflies from around the world</p>
+            </div>
+        </div>
+    </header>
+
+        <div class="container">
+      <h1 class="display-4">dKin Butterfly Club: Survey Results</h1>
+      <h3>Survey form submitted successfully</h3>
+      <p>Thank you <i> <%= firstname %> </i> for completing the <b>dKin Butterfly Club</b> survey. A summary of the surveys submitted so far is shown
+        below:</p>
+      <p class="lead ">Summary of Survey Results</p>
+
+
+    
+       <div>
+      <table>
+        <tr>
+          <th>
+            Survey Completed on:
+          </th>
+          <td>
+            <%= SurveyCompleted %>
+          </td>
+        </tr>
+        <tr>
+          <th>First Name:</th>
+          <td>
+            <%= firstname %>
+          </td>
+        </tr>
+        <tr>
+          <th>Surname:</th>
+          <td>
+            <%= surname %>
+          </td>
+        </tr>
+        <tr>
+          <th>Email:</th>
+          <td>
+            <%=email %>
+          </td>
+        </tr>
+        <tr>
+          <th>Favourite Butterfly Colour:</th>
+          <td>
+            <%= FavouriteButterflyColour %>
+          </td>
+        </tr>
+        <tr>
+          <th>Comment:</th>
+          <td>
+            <%= Comment %>
+          </td>
+        </tr>
+      </table>
+      </div>
+
+      <h2>Summary of Survey Results</h2>
+      <p>The responses to each of the survey questions have a value ranging from a value of <em>1</em> for <i>Strongly
+          Disagree</i>, through to a valye of <em>5</em> for <i>Strongly Agree</i>.</p>
+      <ul>
+        <li>
+          This Survey has been completed <em>
+            <%= submissionCount %>
+          </em> times.
+        </li>
+        <li>
+          The average results for Q1, Q2 and Q3 are <%= Q1 %>, <%= Q2 %> and <%= Q3 %> respectively.
+        </li>
+      </ul>
+      <a href="/">Click here to return to the survey form.</a>
+    </div>
+  </main>
