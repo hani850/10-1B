@@ -20,8 +20,8 @@ db.serialize(function () {
 
     console.log('New database cleared');
 
-     db.run(`INSERT INTO User (fname, sname, email, date, q1, q2, q3, colour, comment) 
-        VALUES ("su","leong", "email1", "1/24", "2", "2","5","blue","A butterfly landed on me")`,)
+     db.run(`INSERT INTO User (id, fname, sname, email, date, q1, q2, q3, colour, comment) 
+        VALUES ("1", "su","leong", "email1", "1/24", "2", "2","5","blue","A butterfly landed on me")`,)
          console.log('New database values inserted');
 });
 
@@ -160,12 +160,7 @@ app.post('/submitsurvey', (req, res, next) => {
 app.get('/users', function (req, res) {
     let html = '';
     //HTML code to display multiple tables with DB data
-        html += '<body><div class="container">';
-        html += '<h3> Survey Information Table </h3>';
-        html += '<table class="table">';
-        html += '<thead class="thead-dark"><tr>';
-        html += '<th>Name</th><th>Password</th><th>Option</th>';
-        html += '<tr></thead><tbody>';
+        html += '<body><div class="border border-primary rounded mb-3 p-2">';
 
         // Retrieve data from table User on the server 
         // and display it in a web page table structure
@@ -178,22 +173,19 @@ app.get('/users', function (req, res) {
                 html += '<tr><td colspan="3"> No data found </td></tr>';
             } else {
                 rows.forEach(function (row) {
-                    html += '<tr>';
-                    html += '<td>' + row.userFirstname + '</td>';
-                    html += '<td>' + row.userLastname + '</td>';
-                    html += '<td>' + row.userEmail + '</td>';
-                    html += '<td>' + row.currentTime + '</td>';
-                    html += '<td>' + row.userQ1 + '</td>';
-                    html += '<td>' + row.userQ2 + '</td>';
-                    html += '<td>' + row.userQ3 + '</td>';
-                    html += '<td>' + row.userFavColour + '</td>';
-                    html += '<td>' + row.userComments + '</td></tr>';
+                    html += '<p class="text-secondary mb-1">';
+                    html += '<small>' + row.id + row.userFirstname + row.userLastname + '</small></p>';
+                    html += '<div class="row"><div class="col-sm-6">';
+                    html += '<td>' + '</td>';
+                    html += '<p class="text-primary mb-0">Comment</p><p><em>' + row.userComments + '</em></p></div>';
+                    html += '<div class="col-sm-2"><p class="text-primary mb-0">Colour</p><div class="badge text-wrap" style="background-color:' + row.userFavColour + '">' + row.userFavColour +'</div></div>';
+                    html += '<div class="col-sm-4"><p class="text-primary mb-0">Results</p><div class="progress" role="progressbar" aria-label="Success example"aria-valuenow="' + row.userQ1;
+                    html += '" aria-valuemin="1" aria-valuemax="5">Q1<div class="progress-bar text-bg-success" style="width:60%">' + row.userQ1 + '</div></div>';
+                    html += '<div class="progress" role="progressbar" aria-label="Success example" aria-valuenow="' + row.userQ2 + '" aria-valuemin="1" aria-valuemax="5">Q2<div class="progress-bar text-bg-success" style="width:20%">' + row.userQ2 + '</div></div>';
+                    html += '<div class="progress" role="progressbar" aria-label="Success example" aria-valuenow="' + row.userQ3 + '" aria-valuemin="1" aria-valuemax="5"> Q3<div class="progress-bar text-bg-success" style="width:100%">' + row.userQ2 + '</div></div>';
+                    html += '</div></div><p class="text-secondary mb-1"><small>' + row.currentTime + '</small></p></div></body>';
                 });
             }
-
-        html += '</tbody></table>';
-        html += '</div>';
-        html += '</body></html>';
          console.log('New database Outputed in Surveys');
         res.send(html);
 
