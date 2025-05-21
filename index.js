@@ -170,10 +170,20 @@ app.get('/users', function (req, res) {
             }
             if (rows.length === 0) {
                 console.log("Array is empty!")
-                html += '<tr><td colspan="3"> No data found </td></tr>';
+
+                html += '<header><div class="container-fluid bg-success-subtle">';
+                html += ' <div class="col-sm-8 mx-auto text-center py-4">';
+                html += '<h1 class="display-6">dKin Butterfly Club</h1>';
+                html += ' <p class="lead">Informative web page on Butterflies from around the world</p> </div></div></header>';
+               
+                html += '<main> <div class="container-fluid p-3 py-4"><h1>Survey List</h1>';
+                html += '<p>The complete list of <em>dKin Butterflies</em> surveys is shown in the table below. Accessing this data stored in a persistent database is performed on the server. <br> ';
+                html += 'There is a total of <%= surveysCompleted%> surveys completed.</p>';
+
+                html += '<body>';
             } else {
                 rows.forEach(function (row) {
-                    html += '<p class="text-secondary mb-1">';
+                    html += '<div class="border border-primary rounded mb-3 p-2"><p class="text-secondary mb-1">';
                     html += '<small>' + row.id + row.userFirstname + row.userLastname + '</small></p>';
                     html += '<div class="row"><div class="col-sm-6">';
                     html += '<td>' + '</td>';
@@ -183,9 +193,11 @@ app.get('/users', function (req, res) {
                     html += '" aria-valuemin="1" aria-valuemax="5">Q1<div class="progress-bar text-bg-success" style="width:60%">' + row.userQ1 + '</div></div>';
                     html += '<div class="progress" role="progressbar" aria-label="Success example" aria-valuenow="' + row.userQ2 + '" aria-valuemin="1" aria-valuemax="5">Q2<div class="progress-bar text-bg-success" style="width:20%">' + row.userQ2 + '</div></div>';
                     html += '<div class="progress" role="progressbar" aria-label="Success example" aria-valuenow="' + row.userQ3 + '" aria-valuemin="1" aria-valuemax="5"> Q3<div class="progress-bar text-bg-success" style="width:100%">' + row.userQ2 + '</div></div>';
-                    html += '</div></div><p class="text-secondary mb-1"><small>' + row.currentTime + '</small></p></div></body>';
+                    html += '</div></div><p class="text-secondary mb-1"><small>' + row.currentTime + '</small></p></div>';
                 });
             }
+            html += '</body></div></main>';
+            
          console.log('New database Outputed in Surveys');
         res.send(html);
 
