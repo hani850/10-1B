@@ -123,7 +123,7 @@ app.post('/submitsurvey', (req, res, next) => {
     //Add items into the DB
     db.serialize(function () {
         db.run(`INSERT INTO User (fname, sname, email, date, q1, q2, q3, colour, comment) VALUES (?,?,?,?,?,?,?,?,?)`,
-            (userFirstname, userLastname, userEmail, isoString, userQ1, userQ2, userQ3, userFavColour, userComments),)
+            [userFirstname, userLastname, userEmail, isoString, userQ1, userQ2, userQ3, userFavColour, userComments],)
         console.log('Survey complete: Database Updated');
 
         db.each('SELECT * FROM User', function (err, row) {
@@ -131,10 +131,9 @@ app.post('/submitsurvey', (req, res, next) => {
                 console.log("Can't Select from USER" + err.message);
                 throw err;
             }
-            console.log(`[all] Name: ${row.fname}, Surname: ${row.sname}`);
+            console.log(`[all]  ID: ${row.id}, Name: ${row.fname}, Surname: ${row.sname},  Date: ${row.date}`);
         });
     });
-    //db / displayDB.js
 
 
     res.render('result',
@@ -159,6 +158,7 @@ app.post('/submitsurvey', (req, res, next) => {
 app.get('/user', function (req, res) {
     let html = '';
 
+    html += '<%- include(`header`); -%>';
     //HTML code to display multiple tables with DB data
     html += '<header><div class="container-fluid bg-success-subtle">';
     html += '<div class="col-sm-8 mx-auto text-center py-4">';
@@ -192,6 +192,7 @@ app.get('/user', function (req, res) {
             });
         }
         html += '</div></main>';
+        html += '<%- include(`footer`); -%>';
 
         console.log('New database Outputed in Surveys');
         res.send(html);
